@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lê Phạm Nhật Lễ - Hồ Sơ</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <canvas id="snowCanvas"></canvas>
+    <div class="container">
+        <header>
+            <h1>Xin chào, tôi là Lê Phạm Nhật Lễ 👋</h1>
+        </header>
+        <section class="about">
+            <h2>Giới thiệu</h2>
+            <p>Tôi là một lập trình viên đam mê công nghệ và giải quyết vấn đề. Tôi thích làm việc trên các dự án sáng tạo và không ngừng học hỏi những kỹ năng mới để bắt kịp sự thay đổi nhanh chóng của công nghệ.</p>
+        </section>
+        <section class="skills">
+            <h2>Kỹ năng</h2>
+            <ul>
+                <li><strong>Ngôn ngữ:</strong> C, C#, C++, Kotlin, Flutter, Java (Cơ bản)</li>
+                <li><strong>Cơ sở dữ liệu:</strong> MongoDB, MySQL</li>
+                <li><strong>Công cụ:</strong> Git, Docker, GitHub, XAMPP</li>
+            </ul>
+        </section>
+        <section class="contact">
+            <h2>Liên hệ</h2>
+            <p><strong>GitHub:</strong> <a href="https://github.com/LePhamNhatLe" target="_blank">LePhamNhatLe</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/lê-phạm-nhật-lễ-803179336" target="_blank">Lê Phạm Nhật Lễ</a></p>
+            <p><strong>Email:</strong> <a href="mailto:nhatle.app@gmail.com">nhatle.app@gmail.com</a></p>
+        </section>
+    </div>
+    
+
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const header = document.querySelector("header h1");
+            header.addEventListener("mouseover", function() {
+                header.style.color = "#007bff";
+                header.style.transform = "scale(1.1)";
+                header.style.transition = "all 0.3s ease";
+            });
+            header.addEventListener("mouseout", function() {
+                header.style.color = "black";
+                header.style.transform = "scale(1)";
+            });
+        
+            const canvas = document.getElementById("snowCanvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            let snowflakes = [];
+            for (let i = 0; i < 100; i++) {
+                snowflakes.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 3 + 1,
+                    speed: Math.random() * 2 + 1
+                });
+            }
+            
+            function drawSnowflakes() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "pink";
+                ctx.beginPath();
+                snowflakes.forEach(snowflake => {
+                    ctx.moveTo(snowflake.x, snowflake.y);
+                    ctx.arc(snowflake.x, snowflake.y, snowflake.radius, 0, Math.PI * 2);
+                });
+                ctx.fill();
+            }
+            
+            function updateSnowflakes() {
+                snowflakes.forEach(snowflake => {
+                    snowflake.y += snowflake.speed;
+                    if (snowflake.y > canvas.height) {
+                        snowflake.y = 0;
+                        snowflake.x = Math.random() * canvas.width;
+                    }
+                });
+            }
+            
+            function animate() {
+                drawSnowflakes();
+                updateSnowflakes();
+                requestAnimationFrame(animate);
+            }
+            animate();
+        });
+    </script>
+</body>
+</html>
